@@ -20,7 +20,8 @@ namespace ERP_System
                 DisplayCompanyCode();             
                 Session.Clear();
                 Session.Abandon();
-                Session.RemoveAll();         
+                Session.RemoveAll();       
+                //new data
             }
         }
 
