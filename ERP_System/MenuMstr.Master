@@ -1,0 +1,440 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MenuMstr.master.cs" Inherits="ERP_System.MenuMstr" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+    <title>ERP System</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+
+    <!-- MetisMenu CSS -->
+    <link href="vendor/metisMenu/metisMenu.min.css" rel="stylesheet"/>
+
+    <!-- Custom CSS -->
+    <link href="dist/css/sb-admin-2.css" rel="stylesheet"/>
+
+    <!-- Morris Charts CSS -->
+    <link href="vendor/morrisjs/morris.css" rel="stylesheet"/>
+
+     <link href="vendor/datatables-plugins/dataTables.bootstrap.css" rel="stylesheet"/>
+
+    <!-- DataTables Responsive CSS -->
+    <link href="vendor/datatables-responsive/dataTables.responsive.css" rel="stylesheet"/>
+
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+
+    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+    
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
+  
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <%-- <script type="text/javascript">
+        function preventBack() { window.history.forward(); }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+    </script>--%>
+
+    <!--Customize Css Style-->
+    <style>
+         tbody tr td table tbody tr td{
+            font-weight:bold;
+            font-size:medium;
+            width: 30px;
+            padding: 10px;
+            border-right: 2px solid;
+            border-right-color: darkgray;
+        }
+    </style>
+
+</head>
+<body>
+    <form id="form1" runat="server">
+         <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href='<%=ResolveClientUrl("~/MainPage.aspx") %>'>ERP System</a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">       
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href='<%=ResolveClientUrl("~/index.aspx") %>' ><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">               
+                        <li>
+                            <a href='<%=ResolveClientUrl("~/MainPage.aspx") %>'><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        </li>               
+                        <li runat="server" id="PUR" visible="false">
+                            <%--purchasing--%>
+                            <a href="#"><i class="fa fa-credit-card fa-fw"></i> Purchasing <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <%--PR--%>
+                                <li runat="server" id="PR" visible="false">
+                                    <a href="#">Purchase Request (PR)<span class="fa arrow"></span></a>
+
+                                      <ul class="nav nav-third-level">
+
+                                        <%--PR entry--%>
+                                        <li runat="server" id="PR_ENTRY" visible="false">
+                                            <a href='<%=ResolveClientUrl("~/PR_Module/Forms/PR_Entry.aspx") %>' target="">PR Entry</a>
+                                        </li>     
+                                          
+                                              <%--PR edit--%>
+                                        <li runat="server" id="PR_EDIT" visible="false">
+                                            <a href='<%=ResolveClientUrl("~/PR_Module/Forms/PR_EDIT.aspx") %>' target="">PR Edit</a>
+                                        </li>  
+                                          
+                                          
+                                                         <%--PR certify--%>
+                                        <li runat="server" id="PR_CERTIFY" visible="false">
+                                            <a href='<%=ResolveClientUrl("~/PR_Module/Forms/PR_Certify.aspx") %>' target="">PR Certify</a>
+                                        </li> 
+                                    
+                                                         <%--PR approval--%>
+                                        <li runat="server" id="PR_APPROVAL" visible="false">
+                                            <a href='<%=ResolveClientUrl("~/PR_Module/Forms/PR_APPROVAL.aspx") %>' target="">PR Approval</a>
+                                        </li> 
+                                      
+                                          
+                                               <%--PR update PO--%>
+                                        <li runat="server" id="PR_UPDATE_PO" visible="false">
+                                            <a href='<%=ResolveClientUrl("~/PR_Module/Forms/PR_UPDATE_PO.aspx") %>' target="">PR Update (PO)</a>
+                                        </li>  
+
+                                               
+                                             <%--PR View--%>
+                                        <li runat="server" id="PR_VIEW" visible="false">
+                                            <a href='<%=ResolveClientUrl("~/PR_Module/Forms/PR_View.aspx") %>' target="">PR View</a>
+                                        </li>  
+
+
+                                               <%--PR Approval History--%>
+                                        <li runat="server" id="PR_APPROVAL_HISTORY" visible="false">
+                                            <a href='<%=ResolveClientUrl("~/PR_Module/Forms/PR_Approval_History.aspx") %>' target="">PR Approval History</a>
+                                        </li>  
+                                    </ul>
+
+                                </li>
+                                 <!-- /PO -->
+                                <li runat="server" id="PO" visible="false">
+                                    
+                                    <a href="#">Purchase Order (PO)<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+
+                                        <%--PO entry--%>
+                                        <li runat="server" id="PO_ENTRY" visible="false">
+                                            <a href='<%=ResolveClientUrl("~/PO_Module/Forms/PO_Entry.aspx") %>' target="">PO Entry</a>
+                                        </li>
+
+                                        <%--PO approval--%>
+                                        <li runat="server" id="PO_APPROVAL" visible="false" >
+                                            <a href='<%=ResolveClientUrl("~/PO_Module/Forms/PO_Approval.aspx") %>' target="">PO Approval</a>
+                                        </li>
+                                      
+                                           <%--PO Edit--%>
+                                        <li runat="server" id="PO_EDIT" visible="false" >
+                                            <a href='<%=ResolveClientUrl("~/PO_Module/Forms/PO_Edit.aspx") %>' target="">PO Edit</a>
+                                        </li>
+
+                                    </ul>
+                                   
+                                </li>                                
+                                
+                            </ul>
+                          
+                            <!-- /.nav-second-level -->
+                        </li>
+
+                        <li runat="server" id="WARE" visible="false">
+                            <%--warehouse--%>
+                                 <a href="#"><i class="fa fa-home fa-fw"></i> Warehouse <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                                            
+                                  <!-- /GRN -->
+                                  <li runat="server" id="GRN" visible="false">
+                                     
+                                    <a href="#">Goods Receive Note (GRN)<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+
+                                        <%--GRN entry--%>
+                                        <li runat="server" id="GRN_ENTRY" visible="false">
+                                            <a href='<%=ResolveClientUrl("~/GRN_Module/Forms/GRN_Entry.aspx") %>' target="">GRN Entry</a>
+                                        </li>
+
+                                        <%--GRN approval--%>
+                                        <li runat="server" id="GRN_APPROVAL" visible="false">
+                                            <a href='<%=ResolveClientUrl("~/GRN_Module/Forms/GRN_Approval.aspx") %>' target="">GRN Approval</a>
+                                        </li>
+                                     
+
+                                         <%--GRN Edit--%>
+                                        <li runat="server" id="GRN_EDIT" visible="false">
+                                           <%-- <%=ResolveClientUrl("~/GRN_Module/Forms/GRN_Approval.aspx") %>--%>
+                                            <a href='#' target="">GRN Edit</a>
+                                        </li>
+                                    </ul>
+                                 
+                                </li>
+
+                                <%--INV--%>
+                                <li runat="server" id="INV" visible="false">
+                                    
+                                    <a href="#">Inventory<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+
+                                        <%--Stock transfer--%>
+                                        <li runat="server" id="STOCK_TRANSFER" visible="false">
+                                            <a href='<%=ResolveClientUrl("~/INV_Module/Forms/Stock_Transfer_Requisition.aspx") %>' target="">Stock Transfer Requisition</a>
+                                        </li>                                  
+                                      
+                                    </ul>
+                                   
+                                </li>                                                      
+
+                            </ul>
+                        </li>
+
+                          <li runat="server" id="PRD" visible="false">
+                             <%--production--%>
+                                 <a href="#"><i class="fa fa-gear fa-fw"></i> Production <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">                                                                                          
+                                                       
+                                <%--PACKING--%>
+                                   <li runat="server" id="PKG" visible="false">
+                                    
+                                    <a href="#">Packing<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+
+                                        <%--Create packing list--%>
+                                        <li runat="server" id="CREATE_PACKING_LIST" visible="false">
+                                            <a href='<%=ResolveClientUrl("~/PRD_Module/Forms/Create_Packing_List.aspx") %>' target="">Creating Packing List</a>
+                                        </li>
+
+                                        <%--Packing entry--%>
+                                        <li runat="server" id="PACKING_ENTRY" visible="false">
+                                            <a href='<%=ResolveClientUrl("~/PRD_Module/Forms/Packing Entry.aspx") %>' target="">Packing Entry</a>
+                                        </li>
+
+                                        <%--Packing certify--%>
+                                       <li runat="server" id="PACKING_CERTIFY" visible="false">
+                                            <a href='<%=ResolveClientUrl("~/PRD_Module/Forms/Certify_Packing_Entry.aspx") %>' target="">Certify Packing Entry</a>
+                                        </li>
+                                      
+                                    </ul>
+                                   
+                                </li>
+
+
+
+                            </ul>
+                        </li>
+
+
+                           <li runat="server" id="SO" visible="false">
+                             <%--sales order--%>
+                                 <a href="#"><i class="fa fa-gear fa-fw"></i> Sales Order <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">                                                                                          
+                                                       
+                                <%--sales contract--%>
+                                   <li runat="server" id="SC" visible="false">
+                                    
+                                    <a href="#">Sales Contract<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+
+                                        <%--sales contract entry--%>
+                                        <li runat="server" id="SC_ENTRY" visible="false">
+                                            <a href='<%=ResolveClientUrl("~/SALES_ORDER/Forms/Sales_Contract_Entry.aspx") %>' target="">Sales Contract Entry</a>
+                                        </li>
+
+                                        <%--sales contract edit--%>
+                                        <li runat="server" id="SC_EDIT" visible="false">
+                                            <a href='<%=ResolveClientUrl("~/SALES_ORDER/Forms/Sales_Contract_Edit.aspx") %>' target="">Sales Contract Edit</a>
+                                        </li>
+
+                                        <%--sales contract certify--%>
+                                       <li runat="server" id="SC_CERTIFY" visible="false">
+                                            <a href='<%=ResolveClientUrl("~/SALES_ORDER/Forms/Certify_Sales_Contract.aspx") %>' target="">Certify Sales Contract</a>
+                                        </li>
+                                      
+                                    </ul>
+                                   
+                                </li>
+
+                                  <%--delivery order--%>
+                                   <li runat="server" id="SHP" visible="false">
+                                    
+                                    <a href="#">Shipping<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+
+                                        <%--delivery order entry--%>
+                                        <li runat="server" id="DO_ENTRY" visible="false">
+                                            <a href='<%=ResolveClientUrl("~/SALES_ORDER/Forms/Delivery_Order_Entry.aspx") %>' target="">Delivery Order Entry</a>
+                                        </li>
+
+                                        <%--delivery order edit--%>
+                                        <li runat="server" id="DO_EDIT" visible="false">
+                                            <a href='<%=ResolveClientUrl("~/SALES_ORDER/Forms/Delivery_Order_Edit.aspx") %>' target="">Delivery Order Edit</a>
+                                        </li>
+
+                                        <%--delivery order ertify--%>
+                                       <li runat="server" id="DO_CERTIFY" visible="false">
+                                            <a href='<%=ResolveClientUrl("~/SALES_ORDER/Forms/Certify_Delivery_Order.aspx") %>' target="">Certify Delivery Order</a>
+                                        </li>
+
+
+                                            <%--print delivery order--%>
+                                       <li runat="server" id="DO_PRINT" visible="false">
+                                            <a href='<%=ResolveClientUrl("~/SALES_ORDER/Forms/Print_Delivery_Order.aspx") %>' target="">Print Delivery Order</a>
+                                        </li>
+                                      
+                                    </ul>
+                                   
+                                </li>
+
+                            </ul>
+
+                        </li>
+
+                         <li runat="server" id="ADM" visible="false">
+                             <%--Admin Settings--%>
+                                 <a href="#"><i class="fa fa-user fa-fw"></i> Admin Settings <span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">                                                                                          
+                                                   
+                                <%--System--%>
+                                   <li runat="server" id="SYS" visible="false">
+                                    
+                                    <a href="#">System User<span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+
+                                        <%--Create user--%>
+                                        <li runat="server" id="CREATE_USER" visible="false">
+                                            <a href='<%=ResolveClientUrl("~/ADM_Module/Forms/Create_User.aspx") %>' target="">Creating New User</a>
+                                        </li>
+
+                                        <%--Edit user info--%>
+                                        <li runat="server" id="EDIT_USER_INFORMATION" visible="false">
+                                            <a href='<%=ResolveClientUrl("~/ADM_Module/Forms/Edit_User.aspx") %>' target="">Edit User Information</a>
+                                        </li>
+
+                                        <%--User permission--%>
+                                        <li runat="server" id="USER_PERMISSION" visible="false">
+                                            <a href='<%=ResolveClientUrl("~/ADM_Module/Forms/User_Permission.aspx") %>' target="">User Privilege</a>
+                                        </li>
+                                       
+                                      
+                                    </ul>
+                                   
+                                </li>
+
+
+
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <div id="page-wrapper">
+            
+            <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+
+            </div>
+
+
+    </div>
+    <!-- /#wrapper -->
+<%--                <!-- jQuery -->
+    <script src="<%= Page.ResolveClientUrl("~/vendor/jquery/jquery.min.js") %>"></script>--%>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="<%= Page.ResolveClientUrl("~/vendor/bootstrap/js/bootstrap.min.js") %>"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="<%= Page.ResolveClientUrl("~/vendor/metisMenu/metisMenu.min.js") %>"></script>
+
+    <!-- Morris Charts JavaScript -->
+<%--    <script src="<%= Page.ResolveClientUrl("~/vendor/raphael/raphael.min.js") %>"></script>
+    <script src="<%= Page.ResolveClientUrl("~/vendor/morrisjs/morris.min.js") %>"></script>
+    <script src="<%= Page.ResolveClientUrl("~/data/morris-data.js") %>"></script>--%>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="<%= Page.ResolveClientUrl("~/dist/js/sb-admin-2.js") %>"></script>
+
+    <script src="<%= Page.ResolveClientUrl("~/vendor/datatables/js/jquery.dataTables.min.js") %>"></script>
+    <script src="<%= Page.ResolveClientUrl("~/vendor/datatables-plugins/dataTables.bootstrap.min.js") %>"></script>
+    <script src="<%= Page.ResolveClientUrl("~/vendor/datatables-responsive/dataTables.responsive.js") %>"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="<%= Page.ResolveClientUrl("~/dist/js/sb-admin-2.js") %>"></script>
+
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />  
+
+       <%-- <script src="<%= Page.ResolveClientUrl("~/autocomplete/jquery.min.js") %>"></script>  --%>
+<%--<script src="<%= Page.ResolveClientUrl("~/autocomplete/jquery-ui.js") %>"></script> 
+    <link rel="stylesheet" href="autocomplete/jquery-ui.css"/> --%>
+
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+     <script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+            responsive: true
+        });
+    });
+    </script>
+
+      
+    </form>
+</body>
+</html>
